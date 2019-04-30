@@ -9,6 +9,16 @@ public class Street {
     private int orientation;        //0 - horizontal, 1 - vertical
     private Intersection lIntersection;
     private Intersection rIntersection;
+
+    private Line lLine, rLine;
+
+
+
+
+
+
+
+
     public Street(int x, int y, int orientation) {
         this.x = x;
         this.y = y;
