@@ -10,6 +10,8 @@ public class Main {
 
         MainPanel m = new MainPanel();
 
+        Simulation simulation = new Simulation(m);
+
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI(m);
@@ -17,7 +19,7 @@ public class Main {
 
         });
 
-        m.play();
+        simulation.play();
     }
 
     private static void createAndShowGUI(MainPanel m) {

@@ -26,4 +26,8 @@ public class Street {
         g.drawLine(x1, y1, x1 + 100 - 100 * orientation, y1 + 100 * orientation);
         g.drawLine(x2, y2, x2 + 100 - 100 * orientation, y2 + 100 * orientation);
     }
+
+    public void takeTurn() {
+
+    }
 }
