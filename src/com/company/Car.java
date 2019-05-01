@@ -58,7 +58,7 @@ public class Car {
         int x = location.getxCo();
         int y = location.getyCo();
 
-        g.fillOval(x - 1, y - 1, 4, 4);
+        g.fillOval(x - 2, y - 2, 4, 4);
     }
 
     public void takeTurn() {

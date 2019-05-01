@@ -48,7 +48,8 @@ public class Simulation {
 
         for (Intersection it : intersections) {
             for (int i = 0; i < 4; i++)
-                cars.add(new Car(it, i));
+                for (int j = 0; j < 3; j++)
+                    cars.add(new Car(it, i));
         }
     }
 
@@ -61,7 +62,7 @@ public class Simulation {
         while (true) {
             j++;
             try {
-                sleep(100);
+                sleep(33);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
