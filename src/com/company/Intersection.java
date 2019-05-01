@@ -1,26 +1,30 @@
 package com.company;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Intersection {
     private int priority;   // 0 - N, 1 - W, 2 - S, 3 - E
     private Field outFields[];
     private int xCo, yCo;
     private int counter;
+    private int cycleLength;
 
 
-    public Intersection(int x, int y) {
+    public Intersection(int x, int y, int cycleLength) {
         priority = 0;
         this.xCo = x;
         this.yCo = y;
         counter = 0;
+        this.cycleLength = cycleLength;
+
 
         outFields = new Field [4];
     }
 
     public void takeTurn () {
         counter++;
-        counter = counter % 20;
+        counter = counter % cycleLength;
         if (counter == 0) {
             priority = (priority + 1) % 4;
         }

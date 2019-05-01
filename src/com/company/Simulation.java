@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static java.lang.Thread.sleep;
 
@@ -12,31 +13,33 @@ public class Simulation {
     private MainPanel mainPanel;
 
     public Simulation(MainPanel panel) {
-        intersectionsTable = new Intersection[5][5];
+        intersectionsTable = new Intersection[10][10];
         intersections = new ArrayList<>();
         streets = new ArrayList<>();
         cars = new ArrayList<>();
 
+        Random random = new Random();
+
         mainPanel = panel;
 
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 5; j++) {
-                intersectionsTable[i][j] = new Intersection(50 + 100 * i, 50 + 100 * j);
+        for (int i = 0; i < 10; i++)
+            for (int j = 0; j < 10; j++) {
+                intersectionsTable[i][j] = new Intersection(50 + 100 * i, 50 + 100 * j, 20 + (random.nextInt() % 8));
                 intersections.add(intersectionsTable[i][j]);
                 }
 
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 5; j++) {
+        for (int i = 0; i < 10; i++)
+            for (int j = 0; j < 10; j++) {
                 Intersection it = intersectionsTable[i][j];
-                Intersection rIt = intersectionsTable[(i + 1) % 5][j];
-                Intersection dIt = intersectionsTable[i][(j + 1) % 5];
+                Intersection rIt = intersectionsTable[(i + 1) % 10][j];
+                Intersection dIt = intersectionsTable[i][(j + 1) % 10];
                 Street s = new Street(0, it, rIt);
                 it.setOutField(s.getLeftFirstField(), 3);
                 rIt.setOutField(s.getRightFirstField(), 1);
                 streets.add(s);
-                s = new Street(1, it, rIt);
+                s = new Street(1, it, dIt);
                 it.setOutField(s.getLeftFirstField(), 2);
-                rIt.setOutField(s.getRightFirstField(), 0);
+                dIt.setOutField(s.getRightFirstField(), 0);
                 streets.add(s);
             }
 
