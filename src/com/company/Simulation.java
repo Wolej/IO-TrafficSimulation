@@ -58,7 +58,7 @@ public class Simulation {
         while (true) {
             j++;
             try {
-                sleep(33);
+                sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

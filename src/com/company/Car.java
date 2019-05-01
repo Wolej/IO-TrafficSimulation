@@ -8,6 +8,7 @@ public class Car {
     private Color color;
     private Driver driver;
     private int direction;
+    private int anger;
 
     private void takeField(Field f) {
         f.beTaken(this);
@@ -18,6 +19,7 @@ public class Car {
         location = startLoc;
         color = Color.BLUE;
         driver = new Driver();
+        anger = 0;
 
         if (location.isLastInLine()) {
             direction = 0;
@@ -65,8 +67,10 @@ public class Car {
         if (location.isLastInLine()) {
             Intersection upcInt = location.getUpcomingIntersection();
 
-            if (!upcInt.hasPriority((direction+2) % 4))
+            if (!upcInt.hasPriority((direction+2) % 4)) {
+                anger++;
                 return;
+            }
 
             newDir = driver.resolveIntersection(upcInt, direction);
 
@@ -74,9 +78,17 @@ public class Car {
         }
 
         if (nextField.isEmpty()) {
+            anger--;
             location.empty();
             this.takeField(nextField);
             direction = newDir;
+        } else {
+            anger ++;
         }
+
+        if (anger > 100)
+            color = Color.RED;
+        else
+            color = Color.BLUE;
     }
 }
