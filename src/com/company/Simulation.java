@@ -24,7 +24,7 @@ public class Simulation {
 
         for (int i = 0; i < 10; i++)
             for (int j = 0; j < 10; j++) {
-                intersectionsTable[i][j] = new Intersection(50 + 100 * i, 50 + 100 * j, 20 + (random.nextInt() % 8));
+                intersectionsTable[i][j] = new Intersection(50 + 100 * i, 50 + 100 * j, 10 + (random.nextInt() % 5));
                 intersections.add(intersectionsTable[i][j]);
                 }
 
@@ -48,7 +48,7 @@ public class Simulation {
 
         for (Intersection it : intersections) {
             for (int i = 0; i < 4; i++)
-                for (int j = 0; j < 3; j++)
+                for (int j = 0; j < 7; j++)
                     cars.add(new Car(it, i));
         }
     }
@@ -62,7 +62,7 @@ public class Simulation {
         while (true) {
             j++;
             try {
-                sleep(33);
+                sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

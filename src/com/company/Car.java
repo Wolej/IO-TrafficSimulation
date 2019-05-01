@@ -70,6 +70,8 @@ public class Car {
             if (!upcInt.hasPriority((direction+2) % 4)) {
                 anger++;
                 return;
+            } else {
+                anger = 0;
             }
 
             newDir = driver.resolveIntersection(upcInt, direction);
@@ -78,15 +80,14 @@ public class Car {
         }
 
         if (nextField.isEmpty()) {
-            anger--;
             location.empty();
             this.takeField(nextField);
             direction = newDir;
         } else {
-            anger ++;
+            anger++;
         }
 
-        if (anger > 100)
+        if (anger > 35)
             color = Color.RED;
         else
             color = Color.BLUE;
