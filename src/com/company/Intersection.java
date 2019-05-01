@@ -43,6 +43,8 @@ public class Intersection {
     }
 
     public Field getOutField(int direction) {
+        if (direction < 0)
+            direction += 4;
         return outFields[direction];
     }
 

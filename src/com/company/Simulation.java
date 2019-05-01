@@ -41,6 +41,8 @@ public class Simulation {
             }
 
 
+
+
         for (Intersection it : intersections) {
             for (int i = 0; i < 4; i++)
                 cars.add(new Car(it, i));
@@ -49,6 +51,8 @@ public class Simulation {
 
     public void play() {
         int j = 0;
+        Car car = (new Car(intersectionsTable[2][2], 3));
+        cars.add(car);
         mainPanel.update(intersections, streets, cars);
         mainPanel.repaint();
         while (true) {

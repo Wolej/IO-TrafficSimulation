@@ -61,18 +61,22 @@ public class Car {
 
     public void takeTurn() {
         Field nextField = location.next();
+        int newDir = direction;
         if (location.isLastInLine()) {
             Intersection upcInt = location.getUpcomingIntersection();
 
             if (!upcInt.hasPriority((direction+2) % 4))
                 return;
 
-            nextField = upcInt.getOutField(driver.resolveIntersection(upcInt, direction));
+            newDir = driver.resolveIntersection(upcInt, direction);
+
+            nextField = upcInt.getOutField(newDir);
         }
 
         if (nextField.isEmpty()) {
             location.empty();
             this.takeField(nextField);
+            direction = newDir;
         }
     }
 }

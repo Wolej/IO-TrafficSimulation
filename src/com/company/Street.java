@@ -23,8 +23,8 @@ public class Street {
         y2 = y - 2 + 2 * orientation;
 
         this.orientation = orientation;
-        lLine = new Line(x1, y1, x1 + LINE_LENGTH - LINE_LENGTH * orientation, y1 + LINE_LENGTH * orientation, lIntersection);
-        rLine = new Line(x2 + LINE_LENGTH - LINE_LENGTH * orientation, y2 + LINE_LENGTH * orientation, x2, y2, rIntersection);
+        lLine = new Line(x1, y1, x1 + LINE_LENGTH - LINE_LENGTH * orientation, y1 + LINE_LENGTH * orientation, rIntersection);
+        rLine = new Line(x2 + LINE_LENGTH - LINE_LENGTH * orientation, y2 + LINE_LENGTH * orientation, x2, y2, lIntersection);
     }
 
     public void paintStreet(Graphics g) {
