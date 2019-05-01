@@ -4,12 +4,14 @@ public class Field {
     private int xCo, yCo;
     private Field nextField;
     private Car car;
+    private Line line;
 
 
-    public Field(int xCo, int yCo) {
+    public Field(int xCo, int yCo, Line line) {
         this.xCo = xCo;
         this.yCo = yCo;
         nextField = null;
+        this.line = line;
     }
 
     public void setNextField(Field nextField) {
@@ -44,5 +46,5 @@ public class Field {
         return yCo;
     }
 
-    public Intersection get
+    public Intersection getUpcomingIntersection() { return line.getFinalIntersection(); }
 }
