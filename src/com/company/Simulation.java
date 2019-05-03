@@ -11,6 +11,9 @@ public class Simulation {
     private ArrayList<Street> streets;
     private ArrayList<Car> cars;
     private MainPanel mainPanel;
+    private boolean paused;
+
+    private static final int TURN_TIME = 33;
 
     public Simulation(MainPanel panel) {
         intersectionsTable = new Intersection[10][10];
@@ -53,16 +56,33 @@ public class Simulation {
         }
     }
 
+    public boolean pause() {
+        paused = !paused;
+        return paused;
+    }
+
+    public void unpause() {
+        paused = true;
+    }
+
     public void play() {
         int j = 0;
-        Car car = (new Car(intersectionsTable[2][2], 3));
-        cars.add(car);
+
         mainPanel.update(intersections, streets, cars);
         mainPanel.repaint();
         while (true) {
+            if (paused) {
+                try {
+                    sleep(TURN_TIME);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                continue;
+            }
+
             j++;
             try {
-                sleep(100);
+                sleep(TURN_TIME);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

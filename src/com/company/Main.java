@@ -14,7 +14,7 @@ public class Main {
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI(m);
+                createAndShowGUI(m, simulation);
             }
 
         });
@@ -22,12 +22,16 @@ public class Main {
         simulation.play();
     }
 
-    private static void createAndShowGUI(MainPanel m) {
+    private static void createAndShowGUI(MainPanel m, Simulation s) {
         System.out.println("Created GUI on EDT? "+
                 SwingUtilities.isEventDispatchThread());
         JFrame f = new JFrame("Main Window");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.add(m);
+
+        MainWindow mainWindow = new MainWindow(s, m);
+
+
+        f.add(mainWindow.$$$getRootComponent$$$());
         f.setSize(700,700);
         f.setVisible(true);
     }
