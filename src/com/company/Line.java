@@ -15,11 +15,12 @@ public class Line {
         this.yECo = yECo;
         this.finalIntersection = finalIntersection;
 
-        int length = 40;
+        int length = 80;
         fields = new Field [length];
+        double dx = 1.0 / length;
 
         for (int i = 0; i < length; i++) {
-            fields[i] = new Field(xCo + ((xECo - xCo) / length) * i, yCo + ((yECo - yCo) / length) * i, this);
+            fields[i] = new Field(xCo + (int) Math.round(((xECo - xCo) * dx) * i), yCo + (int) Math.round(((yECo - yCo) * dx) * i), this);
         }
 
         for (int i = 0; i < length - 1; i++) {
