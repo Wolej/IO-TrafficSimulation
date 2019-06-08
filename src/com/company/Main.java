@@ -32,7 +32,7 @@ public class Main {
 
 
         f.add(mainWindow.$$$getRootComponent$$$());
-        f.setSize(700,700);
+        f.setSize(1400,1400);
         f.setVisible(true);
     }
 }

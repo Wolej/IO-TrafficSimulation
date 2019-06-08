@@ -87,7 +87,7 @@ public class Car {
             anger++;
         }
 
-        if (anger > 35)
+        if (anger > 60)
             color = Color.RED;
         else
             color = Color.BLUE;

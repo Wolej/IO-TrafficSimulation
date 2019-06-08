@@ -13,7 +13,7 @@ public class Simulation {
     private MainPanel mainPanel;
     private boolean paused;
 
-    private static final int TURN_TIME = 33;
+    private static final int TURN_TIME = 30;
 
     public Simulation(MainPanel panel) {
         intersectionsTable = new Intersection[10][10];
@@ -27,7 +27,7 @@ public class Simulation {
 
         for (int i = 0; i < 10; i++)
             for (int j = 0; j < 10; j++) {
-                intersectionsTable[i][j] = new Intersection(50 + 100 * i, 50 + 100 * j, 10 + (random.nextInt() % 5));
+                intersectionsTable[i][j] = new Intersection(50 + 200 * i, 50 + 200 * j, 25 + (random.nextInt() % 5));
                 intersections.add(intersectionsTable[i][j]);
                 }
 
@@ -47,11 +47,9 @@ public class Simulation {
             }
 
 
-
-
         for (Intersection it : intersections) {
             for (int i = 0; i < 4; i++)
-                for (int j = 0; j < 7; j++)
+                for (int j = 0; j < 15; j++)
                     cars.add(new Car(it, i));
         }
     }
@@ -70,21 +68,27 @@ public class Simulation {
 
         mainPanel.update(intersections, streets, cars);
         mainPanel.repaint();
+
+        long frameTime = System.currentTimeMillis();
+
         while (true) {
-            if (paused) {
+            long curTime = System.currentTimeMillis();
+            if (frameTime + TURN_TIME < curTime) {
+                System.err.println("FPS dropped");
+            } else {
                 try {
-                    sleep(TURN_TIME);
+                    sleep(frameTime + TURN_TIME - curTime);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                continue;
             }
 
-            j++;
-            try {
-                sleep(TURN_TIME);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            frameTime = curTime;
+
+            if (paused) {
+                continue;
+            } else {
+                j++;
             }
 
             System.out.println("Take a turn: " + j);

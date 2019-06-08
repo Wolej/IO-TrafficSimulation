@@ -6,7 +6,7 @@ public class Street {
     private int orientation;        //0 - horizontal, 1 - vertical
     private Intersection lIntersection;
     private Intersection rIntersection;
-    private static final int LINE_LENGTH = 100;
+    private static final int LINE_LENGTH = 200; // nie ruszać
 
     private Line lLine, rLine;
 

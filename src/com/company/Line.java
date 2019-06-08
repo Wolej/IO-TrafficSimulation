@@ -14,13 +14,15 @@ public class Line {
         this.xECo = xECo;
         this.yECo = yECo;
         this.finalIntersection = finalIntersection;
-        fields = new Field [20];
 
-        for (int i = 0; i < 20; i++) {
-            fields[i] = new Field(xCo + ((xECo - xCo) / 20) * i, yCo + ((yECo - yCo) / 20) * i, this);
+        int length = 40;
+        fields = new Field [length];
+
+        for (int i = 0; i < length; i++) {
+            fields[i] = new Field(xCo + ((xECo - xCo) / length) * i, yCo + ((yECo - yCo) / length) * i, this);
         }
 
-        for (int i = 0; i < 19; i++) {
+        for (int i = 0; i < length - 1; i++) {
             fields[i].setNextField(fields[i + 1]);
         }
 
