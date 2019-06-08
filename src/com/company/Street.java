@@ -3,26 +3,34 @@ package com.company;
 import java.awt.*;
 
 public class Street {
-    private int orientation;        //0 - horizontal, 1 - vertical
     private Intersection lIntersection;
     private Intersection rIntersection;
 
     private Line lLine, rLine;
 
-    public Street(int orientation, Intersection lIntersection, Intersection rIntersection) {
+    public Street(Intersection lIntersection, Intersection rIntersection) {
         int x = lIntersection.getxCo();
         int y = lIntersection.getyCo();
         this.lIntersection = lIntersection;
         this.rIntersection = rIntersection;
 
-        this.orientation = orientation;
+        double r = 2;
 
-        int dx = -2 * orientation;
-        int dy = 2 - 2 * orientation;
-        lLine = new Line(lIntersection.getxCo() + dx, lIntersection.getyCo() + dy,
-                        rIntersection.getxCo() + dx, rIntersection.getyCo() + dy, rIntersection);
-        rLine = new Line(rIntersection.getxCo() - dx, rIntersection.getyCo() - dy,
-                    lIntersection.getxCo() - dx, lIntersection.getyCo() - dy, rIntersection);
+        double vx = rIntersection.getxCo() - lIntersection.getxCo();
+        double vy = rIntersection.getyCo() - lIntersection.getyCo();
+        double norm = Math.sqrt(vx * vx + vy * vy);
+        vx *= r / norm;
+        vy *= r / norm;
+
+        int dx1 = (int) Math.round(-vy);
+        int dy1 = (int) Math.round(vx);
+        int dx2 = (int) Math.round(vx);
+        int dy2 = (int) Math.round(vy);
+
+        lLine = new Line(lIntersection.getxCo() + dx1 + dx2, lIntersection.getyCo() + dy1 + dy2,
+                        rIntersection.getxCo() + dx1 - dx2, rIntersection.getyCo() + dy1 - dy2, rIntersection);
+        rLine = new Line(rIntersection.getxCo() - dx1 - dx2, rIntersection.getyCo() - dy1 - dy2,
+                    lIntersection.getxCo() - dx1 + dx2, lIntersection.getyCo() - dy1 + dy2, lIntersection);
     }
 
     public void paintStreet(Graphics g) {

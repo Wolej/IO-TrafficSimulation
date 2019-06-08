@@ -34,23 +34,29 @@ public class Simulation {
         for (int i = 0; i < 10; i++)
             for (int j = 0; j < 10; j++) {
                 Intersection it = intersectionsTable[i][j];
-                Intersection rIt = intersectionsTable[(i + 1) % 10][j];
-                Intersection dIt = intersectionsTable[i][(j + 1) % 10];
-                Street s = new Street(0, it, rIt);
-                it.setOutField(s.getLeftFirstField(), 3);
-                rIt.setOutField(s.getRightFirstField(), 1);
-                streets.add(s);
-                s = new Street(1, it, dIt);
-                it.setOutField(s.getLeftFirstField(), 2);
-                dIt.setOutField(s.getRightFirstField(), 0);
-                streets.add(s);
+                if (i < 9) {
+                    Intersection rIt = intersectionsTable[(i + 1) % 10][j];
+                    Street s = new Street(it, rIt);
+                    it.setOutField(s.getLeftFirstField(), 3);
+                    rIt.setOutField(s.getRightFirstField(), 1);
+                    streets.add(s);
+                }
+                if (j < 9) {
+                    Intersection dIt = intersectionsTable[i][(j + 1) % 10];
+                    Street s = new Street(it, dIt);
+                    it.setOutField(s.getLeftFirstField(), 2);
+                    dIt.setOutField(s.getRightFirstField(), 0);
+                    streets.add(s);
+                }
             }
 
-
         for (Intersection it : intersections) {
-            for (int i = 0; i < 4; i++)
-                for (int j = 0; j < 15; j++)
-                    cars.add(new Car(it, i));
+            for (int i = 0; i < 4; i++) {
+                if (it.getOutField(i) != null) {
+                    for (int j = 0; j < 15; j++)
+                        cars.add(new Car(it, i));
+                }
+            }
         }
     }
 
@@ -83,7 +89,7 @@ public class Simulation {
                 }
             }
 
-            frameTime = curTime;
+            frameTime = System.currentTimeMillis();
 
             if (paused) {
                 continue;
@@ -92,6 +98,7 @@ public class Simulation {
             }
 
             System.out.println("Take a turn: " + j);
+
 
             for (Car c : cars)
                 c.takeTurn();

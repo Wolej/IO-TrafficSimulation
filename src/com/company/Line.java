@@ -27,6 +27,7 @@ public class Line {
             fields[i].setNextField(fields[i + 1]);
         }
 
+        System.out.println(xCo + ", " + yCo + " -> " + xECo + ", " + yECo);
     }
 
     public Field getFirstField() {
