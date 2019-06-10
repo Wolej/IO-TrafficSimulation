@@ -23,8 +23,9 @@ public class CityPanel extends JPanel {
         for (Intersection i : intersections) {
             i.paintIntersection(g);
         }
-        for (Car c : cars)
+        for (Car c : cars) {
             c.paintCar(g);
+        }
 
         g.setColor(Color.black);
         g.drawLine(10, 10, 590, 10);
