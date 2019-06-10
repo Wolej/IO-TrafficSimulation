@@ -6,6 +6,7 @@ import java.util.List;
 public class Intersection extends Location {
     private static final int radius = 15;
     private List<Field> outFields;
+    private List<Car> cars;
     protected int priority;
 
     public Intersection(int x, int y) {
@@ -13,7 +14,19 @@ public class Intersection extends Location {
     }
 
     public void takeTurn() {
+        jakasLista.clear();
+        for (Car c : cars) {
+            int idx1 = outFields.indexOf(c.getField());
+            int idx2 = outFields.indexOf(c.getNextField());
 
+            if (canDrive(idx1, idx2)) {
+                jakasLista.put(idx1, idx2);
+                cars.remove(c);
+            }
+        }
+    }
+
+    public boolean canDrive(int from, int to) {
     }
 
     public boolean hasPriority(Field f) {
