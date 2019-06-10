@@ -3,9 +3,12 @@ package com.traffic;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
-public class MainWindow extends JFrame implements KeyListener {
-    private CityPanel panel;
+
+public class MainWindow extends JFrame implements KeyListener, ActionListener {
+    public static final int FRAME_LENGTH = 30;
+    private ArrayList<Simulation> simulations;
 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyChar() == ' ') {
@@ -17,15 +20,28 @@ public class MainWindow extends JFrame implements KeyListener {
 
     public void keyReleased(KeyEvent e) {}
 
-    public MainWindow() {
-        super("Main Window");
-        panel = new CityPanel();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public void actionPerformed(ActionEvent e) {
+        for (Simulation s : simulations) {
+            s.update();
+        }
+    }
 
-        this.setLayout(new GridLayout(1, 1));
-        this.add(panel, BorderLayout.CENTER);
+    public MainWindow(ArrayList<Simulation> simulations) {
+        super("Traffic simulation");
+
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLayout(new GridLayout(1, simulations.size()));
+        this.simulations = simulations;
+
+        for (Simulation s : simulations) {
+            this.add(s.city);
+        }
+
         this.setSize(1200,1200);
         this.setVisible(true);
         addKeyListener(this);
+
+        Timer t = new Timer(FRAME_LENGTH, this);
+        t.start();
     }
 }

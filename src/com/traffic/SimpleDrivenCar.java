@@ -6,13 +6,19 @@ public class SimpleDrivenCar implements Car {
     private Field field;
     private Driver driver;
 
+    private static final int radius = 4;
+
+    private double myAnger = 0.0;
+
     public SimpleDrivenCar(Field startingField, Driver driver) {
         field = startingField;
         this.driver = driver;
     }
 
     public void takeTurn() {
-        Location nextLoc = field.nextLocation();
+        myAnger += 0.01;
+        if (myAnger > 1) myAnger -= 1;
+        /*Location nextLoc = field.nextLocation();
         Field nextField;
 
         boolean atIntersection = nextLoc.isIntersection();
@@ -41,13 +47,14 @@ public class SimpleDrivenCar implements Car {
             field.takeField();
         } else {
             driver.trafficJammed();
-        }
+        }*/
     }
 
     public void paintCar(Graphics g) {
         Coordinates coordinates = field.getCoordinates();
 
-        float angerLevel = driver.getAngerLevel();
-        g.drawOval(coordinates.getX(), coordinates.getY(), 10, 10);
+        float angerLevel = (float) myAnger; //driver.getAngerLevel();
+        g.setColor(new Color(angerLevel, 1.0f - angerLevel, 0));
+        g.fillRect(coordinates.getX() - radius, coordinates.getY() - radius, 2 * radius, 2 * radius);
     }
 }
