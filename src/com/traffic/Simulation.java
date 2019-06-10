@@ -1,6 +1,7 @@
 package com.traffic;
 
 import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static java.lang.Thread.sleep;
@@ -11,27 +12,26 @@ public class Simulation {
     private ArrayList<Intersection> intersections;
     private ArrayList<Street> streets;
 
-    public Simulation() {
+    public Simulation(ArrayList<Intersection> intersections, ArrayList<Street> streets) {
         cars = new ArrayList<Car>();
-        intersections = new ArrayList<Intersection> ();
-        streets = new ArrayList<Street>();
-
-        Intersection a = new Intersection(200, 200);
-        Intersection b = new Intersection(500, 500);
-        Intersection c = new Intersection( 200, 500);
-        Street s = new Street(a, b);
-        streets.add(s);
-        streets.add(new Street(a, c));
-
-        intersections.add(a);
-        intersections.add(b);
-        intersections.add(c);
-
-        Field f = new Field(100, 100);
-        Driver d = new RandomDriver();
-        cars.add(new SimpleDrivenCar(f, d));
-
+        this.intersections = intersections;
+        this.streets = streets;
         city = new CityPanel(streets);
+    }
+
+    public void addCar(Car c) {
+        cars.add(c);
+    }
+
+    public void addCars(ArrayList<Car> cars) {
+        for (Car c : cars) {
+            addCar(c);
+        }
+    }
+
+    public Simulation(ArrayList<Intersection> intersections, ArrayList<Street> streets, ArrayList<Car> cars) {
+        this(intersections, streets);
+        this.cars = cars;
     }
 
     void update() {
