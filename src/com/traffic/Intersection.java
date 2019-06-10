@@ -1,7 +1,5 @@
 package com.traffic;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -53,8 +53,8 @@ public class CityFactory {
         }
 
         for (Intersection in : intersections) {
-            cars.add(new SimpleDrivenCar(in.getOutFields().get(0), new RandomDriver()));
-            cars.add(new SimpleDrivenCar(in.getOutFields().get(1), new RandomDriver()));
+            cars.add(new Car(in.getOutFields().get(0), new RandomDriver()));
+            cars.add(new Car(in.getOutFields().get(1), new RandomDriver()));
         }
         return new Simulation(intersections, streets, cars);
     }
