@@ -29,8 +29,12 @@ public class Point {
         return new Point(-y, x);
     }
 
+    public double norm() {
+        return Math.sqrt(x * x + y * y);
+    }
+
     public Point normalize() {
-        double norm = Math.sqrt(x * x + y * y);
+        double norm = this.norm();
         return new Point(x / norm, y / norm);
     }
 

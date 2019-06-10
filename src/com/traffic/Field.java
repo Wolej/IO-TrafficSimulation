@@ -25,6 +25,10 @@ public class Field extends Location {
 
     }
 
+    public void setNextLoc(Location loc) {
+        this.nextLoc = loc;
+    }
+
     public boolean isIntersection() {
         return false;
     }

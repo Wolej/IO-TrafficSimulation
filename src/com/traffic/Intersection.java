@@ -1,6 +1,7 @@
 package com.traffic;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Intersection extends Location {
@@ -11,9 +12,11 @@ public class Intersection extends Location {
 
     public Intersection(int x, int y) {
         super(x, y);
+        outFields = new ArrayList<Field>();
     }
 
     public void takeTurn() {
+        /*
         jakasLista.clear();
         for (Car c : cars) {
             int idx1 = outFields.indexOf(c.getField());
@@ -23,14 +26,19 @@ public class Intersection extends Location {
                 jakasLista.put(idx1, idx2);
                 cars.remove(c);
             }
-        }
+        }*/
     }
 
     public boolean canDrive(int from, int to) {
+        return false;
     }
 
     public boolean hasPriority(Field f) {
         return outFields.indexOf(f) == priority;
+    }
+
+    public void addOutField(Field f) {
+        outFields.add(f);
     }
 
     public List<Field> getOutFields() {

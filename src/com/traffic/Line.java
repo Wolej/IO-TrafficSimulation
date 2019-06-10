@@ -13,6 +13,25 @@ public class Line {
     public Line(Intersection start, Intersection end) {
         this.startInter = start;
         this.finalInter = end;
+
+        Point s = new Point(startInter.getCoordinates());
+        Point t = new Point(finalInter.getCoordinates());
+        double dist = s.substr(t).norm();
+        int fieldsN = 1 + (int) Math.floor(dist / 10);
+
+        fields = new ArrayList<>();
+
+        for (int i = 0; i < fieldsN; ++i) {
+            double k = (double) i / (fieldsN - 1);
+            Point f = t.scale(k).add(s.scale(1.0 - k));
+            fields.add(new Field((int) Math.round(f.x), (int) Math.round(f.y)));
+        }
+
+        for (int i = 0; i + 1 < fieldsN; ++i) {
+            fields.get(i).setNextLoc(fields.get(i + 1));
+        }
+
+        fields.get(fieldsN - 1).setNextLoc(end);
     }
 
     public Field getFirstField() {

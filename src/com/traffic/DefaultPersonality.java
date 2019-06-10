@@ -4,6 +4,10 @@ public class DefaultPersonality implements Personality {
 
     private Anger anger;
 
+    public DefaultPersonality() {
+        anger = new Anger(new Statistics());
+    }
+
     @Override
     public void passedField() {
         anger.lowerAnger(1);

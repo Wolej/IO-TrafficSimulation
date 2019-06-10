@@ -14,8 +14,13 @@ public class Street {
         intersections.add(l1);
         intersections.add(l2);
 
-        lines.add(new Line(l1, l2));
-        lines.add(new Line(l2, l1));
+        Line left = new Line(l1, l2);
+        Line right = new Line(l2, l1);
+
+        l1.addOutField(left.getFirstField());
+        l2.addOutField(right.getFirstField());
+        lines.add(left);
+        lines.add(right);
     }
 
     public int howManyWaiting(Intersection intersection) {

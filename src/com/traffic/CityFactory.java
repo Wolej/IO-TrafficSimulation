@@ -43,7 +43,9 @@ public class CityFactory {
                 streets.add(new Street(intersections.get(m * i + j), intersections.get(m * (i + 1) + j)));
             }
         }
-        return new Simulation(intersections, streets);
+        Car c = new SimpleDrivenCar(intersections.get(0).getOutFields().get(0), new RandomDriver());
+        cars.add(c);
+        return new Simulation(intersections, streets, cars);
     }
 
     public Simulation sampleSimulation() {
@@ -58,10 +60,6 @@ public class CityFactory {
         intersections.add(b);
         intersections.add(c);
 
-        Field f = new Field(100, 100);
-        Driver d = new RandomDriver();
-        cars.add(new SimpleDrivenCar(f, d));
-
-        return new Simulation(intersections, streets, cars);
+        return new Simulation(intersections, streets);
     }
 }
