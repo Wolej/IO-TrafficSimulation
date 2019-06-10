@@ -4,9 +4,9 @@ package com.traffic;
 import static java.lang.Math.*;
 
 public class Anger {    //Driver is considered angry if anger >= 100, anger is always <= 200
-    static final int ANGERTRESHOLD = 100;
-    static final int MAXANGER = 200;
-    static final int MINANGER = 0;
+    private static final int ANGERTRESHOLD = 100;
+    private static final int MAXANGER = 200;
+    private static final int MINANGER = 0;
 
     private int anger;
 
@@ -29,5 +29,9 @@ public class Anger {    //Driver is considered angry if anger >= 100, anger is a
 
     public boolean isAngry() {
         return anger >= ANGERTRESHOLD;
+    }
+
+    public float getAngerLevel() {
+        return (float) anger / MAXANGER;
     }
 }

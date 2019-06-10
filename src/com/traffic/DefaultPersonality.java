@@ -20,8 +20,8 @@ public class DefaultPersonality implements Personality {
     }
 
     @Override
-    public Anger getAngerLevel() {
-        return anger;
+    public float getAngerLevel() {
+        return anger.getAngerLevel();
     }
 
     public boolean isAngry() {
