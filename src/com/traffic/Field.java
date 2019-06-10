@@ -4,6 +4,7 @@ import java.awt.*;
 
 public class Field extends Location {
     private Location nextLoc;
+    private boolean taken = false;
 
     public Field(int x, int y) {
         super(x, y);
@@ -13,13 +14,13 @@ public class Field extends Location {
         return nextLoc;
     }
     public boolean isEmpty() {
-        return false;
+        return !taken;
     }
     public void takeField() {
-
+        taken = true;
     }
     public void freeField() {
-
+        taken = false;
     }
     public void paintField(Graphics g) {
 

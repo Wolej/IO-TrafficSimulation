@@ -16,21 +16,22 @@ public class SimpleDrivenCar implements Car {
     }
 
     public void takeTurn() {
-        myAnger += 0.01;
-        if (myAnger > 1) myAnger -= 1;
-        /*Location nextLoc = field.nextLocation();
+        Location nextLoc = field.nextLocation();
         Field nextField;
 
         boolean atIntersection = nextLoc.isIntersection();
 
+        System.out.println("tutaj");
+
         if (atIntersection) {
             Intersection upcomingIntersection = (Intersection) nextLoc;
 
+            /*
             if (!upcomingIntersection.hasPriority(field)){
                 driver.trafficJammed();
                 return;
-            }
-
+            }*/
+            System.out.println("wybieram");
             nextField = driver.chooseField(upcomingIntersection.getOutFields());
         } else {
             nextField = (Field) nextLoc;
@@ -44,10 +45,12 @@ public class SimpleDrivenCar implements Car {
 
             field.freeField();
             field = nextField;
+            System.out.println("ruszam sie");
             field.takeField();
         } else {
+            System.out.println("TUUTU");
             driver.trafficJammed();
-        }*/
+        }
     }
 
     public void paintCar(Graphics g) {

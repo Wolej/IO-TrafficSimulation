@@ -5,7 +5,7 @@ import java.util.List;
 import java.awt.*;
 
 public class Line {
-    public static final double WIDTH = 2.0;
+    public static final double WIDTH = 5.0;
     private List<Field> fields;
     private Intersection startInter;
     private Intersection finalInter;
@@ -16,6 +16,11 @@ public class Line {
 
         Point s = new Point(startInter.getCoordinates());
         Point t = new Point(finalInter.getCoordinates());
+        Point vec = s.substr(t).normalize();
+        Point ort = vec.rotate90();
+        ort = ort.scale(WIDTH);
+        s = s.substr(ort);
+        t = t.substr(ort);
         double dist = s.substr(t).norm();
         int fieldsN = 1 + (int) Math.floor(dist / 10);
 
@@ -55,31 +60,18 @@ public class Line {
         }
     }
 
-    private Polygon area() {
+    private void drawLine(Graphics g, Point p, Point q) {
+        g.drawLine((int) Math.round(p.x), (int) Math.round(p.y), (int) Math.round(q.x), (int) Math.round(q.y));
+    }
+
+    public void paint(Graphics g) {
         Point start = new Point(startInter.getCoordinates());
         Point end = new Point(finalInter.getCoordinates());
         Point vec = start.substr(end).normalize();
         Point ort = vec.rotate90();
-        Point trans = ort.scale(3);
-        start = start.substr(trans);
-        end = end.substr(trans);
-
         ort = ort.scale(WIDTH);
 
-        ArrayList<Point> res = new ArrayList<>();
-        res.add(start.add(ort));
-        res.add(start.substr(ort));
-        res.add(end.substr(ort));
-        res.add(end.add(ort));
-
-        Polygon result = new Polygon();
-        for (Point p : res) result.addPoint((int) Math.round(p.x), (int) Math.round(p.y));
-        return result;
-    }
-
-    public void paint(Graphics g) {
         g.setColor(Color.gray);
-
-        g.fillPolygon(area());
+        drawLine(g, start.substr(ort), end.substr(ort));
     }
 }

@@ -36,10 +36,6 @@ public class CityPanel extends JPanel {
         for (Car c : cars) {
             c.paintCar(g);
         }
-
-        g.setColor(Color.black);
-        g.drawLine(10, 10, 590, 10);
-        g.drawLine(10, 10, 10, 590);
     }
 
     public void update(ArrayList<Car> cars, ArrayList<Intersection> intersections) {
