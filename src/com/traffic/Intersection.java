@@ -6,13 +6,14 @@ import java.util.List;
 public class Intersection extends Location {
     private static final int radius = 15;
     private List<Field> outFields;
+    protected int priority;
 
     public Intersection(int x, int y) {
         super(x, y);
     }
 
-    public boolean hasPriority(Location location) {
-        return false;
+    public boolean hasPriority(int direction) {
+        return direction == priority;
     }
 
     public void takeTurn() {
