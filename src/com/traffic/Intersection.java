@@ -12,12 +12,12 @@ public class Intersection extends Location {
         super(x, y);
     }
 
-    public boolean hasPriority(int direction) {
-        return direction == priority;
-    }
-
     public void takeTurn() {
 
+    }
+
+    public boolean hasPriority(Field f) {
+        return outFields.indexOf(f) == priority;
     }
 
     public List<Field> getOutFields() {
