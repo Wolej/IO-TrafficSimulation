@@ -9,6 +9,7 @@ public class Intersection extends Location {
     protected List<Field> outFields;
     protected List<Field> inFields;
     protected List<Field> allFields;
+    protected List<Polygon> lights;
 
     private class OrientedField implements Comparable<OrientedField> {
         private Field f;
@@ -82,17 +83,10 @@ public class Intersection extends Location {
         Collections.sort(inOFields);
         Collections.sort(outOFields);
 
-        /*
-        System.out.println("TUU");
-        for (OrientedField of : inOFields) {
-            System.out.println(of.direction.x + ", " + of.direction.y);
-        }
-        System.out.println("");
-         */
-
         inFields = new ArrayList<>();
         outFields = new ArrayList<>();
         allFields = new ArrayList<>();
+        lights = new ArrayList<>();
 
         for (OrientedField of : inOFields) {
             inFields.add(of.f);
@@ -105,6 +99,10 @@ public class Intersection extends Location {
             allFields.add(inFields.get(i));
             allFields.add(outFields.get(i));
         }
+
+        for (OrientedField of : inOFields) {
+            lights.add(rectangle(new Point(of.f.getCoordinates()), of.direction));
+        }
     }
 
     public List<Field> getOutFields() {
@@ -112,12 +110,42 @@ public class Intersection extends Location {
     }
 
     public void paintIntersection(Graphics g) {
-        g.setColor(Color.gray);
+        g.setColor(Color.white);
         int r = Configuration.RADIUS;
         g.fillOval(this.getCoordinates().getX() - r, this.getCoordinates().getY() - r, 2 * r, 2 * r);
+        g.setColor(Color.black);
+        g.drawOval(this.getCoordinates().getX() - r, this.getCoordinates().getY() - r, 2 * r, 2 * r);
+    }
+
+    public void paintLights(Graphics g) {
     }
 
     public boolean isIntersection() {
         return true;
+    }
+
+    private Polygon rectangle(Point start, Point direction) {
+        direction = direction.normalize().scale(Configuration.RADIUS * 1.5);
+        Point end = start.add(direction);
+        Point vec = start.substr(end).normalize();
+        Point ort = vec.rotate90();
+        Point trans = ort.scale(3);
+        start = start.substr(trans);
+        end = end.substr(trans);
+
+        start = start.add(vec.scale(5));
+        end = end.add(vec.scale(5));
+
+        ort = ort.scale(10);
+
+        ArrayList<Point> res = new ArrayList<>();
+        res.add(start.add(ort));
+        res.add(start.substr(ort));
+        res.add(end.substr(ort));
+        res.add(end.add(ort));
+
+        Polygon result = new Polygon();
+        for (Point p : res) result.addPoint((int) Math.round(p.x), (int) Math.round(p.y));
+        return result;
     }
 }

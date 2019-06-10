@@ -16,6 +16,7 @@ public class CityPanel extends JPanel {
         cars = new ArrayList<>();
         intersections = new ArrayList<>();
         this.streets = streets;
+        this.setBackground(Color.white);
     }
 
     public void paintComponent(Graphics _g) {
@@ -27,6 +28,9 @@ public class CityPanel extends JPanel {
         at.scale(sc, sc);
         g.transform(at);
 
+        for (Intersection i : intersections) {
+            i.paintLights(g);
+        }
         for (Street s : streets) {
             s.paint(g);
         }

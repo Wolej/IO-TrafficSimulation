@@ -6,4 +6,5 @@ public interface Personality {
     void trafficJammed();
     float getAngerLevel();
     boolean isAngry();
+    boolean drive();
 }

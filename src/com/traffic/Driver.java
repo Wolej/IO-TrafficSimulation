@@ -8,4 +8,5 @@ public interface Driver {
     void passedIntersection();
     void trafficJammed();
     float getAngerLevel();
+    boolean drive();
 }

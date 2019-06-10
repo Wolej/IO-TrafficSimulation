@@ -5,7 +5,7 @@ import java.util.List;
 import java.awt.*;
 
 public class Line {
-    public static final double WIDTH = 5.0;
+    public static final double WIDTH = 3.0;
     private List<Field> fields;
     private Intersection startInter;
     private Intersection finalInter;

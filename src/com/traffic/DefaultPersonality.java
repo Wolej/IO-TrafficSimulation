@@ -1,11 +1,15 @@
 package com.traffic;
 
-public class DefaultPersonality implements Personality {
+import java.util.Random;
 
+public class DefaultPersonality implements Personality {
+    private int lag = 0;
     private Anger anger;
+    private Random rng;
 
     public DefaultPersonality() {
         anger = new Anger(new Statistics());
+        rng = new Random();
     }
 
     @Override
@@ -21,6 +25,7 @@ public class DefaultPersonality implements Personality {
     @Override
     public void trafficJammed() {
         anger.raiseAnger(2);
+        lag = Math.max(lag, rng.nextInt(10));
     }
 
     @Override
@@ -30,5 +35,11 @@ public class DefaultPersonality implements Personality {
 
     public boolean isAngry() {
         return anger.isAngry();
+    }
+
+    public boolean drive() {
+        if (lag == 0) return true;
+        lag--;
+        return false;
     }
 }

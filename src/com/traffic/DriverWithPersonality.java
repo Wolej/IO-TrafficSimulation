@@ -23,4 +23,6 @@ public abstract class DriverWithPersonality implements Driver{
     public boolean isAngry() {
         return personality.isAngry();
     }
+
+    public boolean drive() { return personality.drive(); }
 }

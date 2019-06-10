@@ -1,19 +1,22 @@
 package com.traffic;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CityFactory {
     private ArrayList<Car> cars;
     private ArrayList<Intersection> intersections;
     private ArrayList<Street> streets;
+    private Random rng;
 
     public CityFactory() {
         cars = new ArrayList<Car>();
         intersections = new ArrayList<Intersection>();
         streets = new ArrayList<Street>();
+        rng = new Random();
     }
 
-    public Simulation gridSimulation(int n, int m, int r) {
+    public Simulation gridSimulation(int n, int m, int r, int a, int b) {
         int gridWidth = (m - 1) * r;
         int gridHeight = (n - 1) * r;
 
@@ -26,7 +29,7 @@ public class CityFactory {
 
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < m; ++j) {
-                intersections.add(new EqIntersection(diffx + r * j, diffy + r * i, 30));
+                intersections.add(new EqIntersection(diffx + r * j, diffy + r * i, rng.nextInt(b - a + 1) + a, rng.nextInt(6)));
             }
         }
 
@@ -54,6 +57,10 @@ public class CityFactory {
 
         for (Intersection in : intersections) {
             cars.add(new Car(in.getOutFields().get(0), new RandomDriver()));
+            cars.add(new Car(in.getOutFields().get(0), new RandomDriver()));
+            cars.add(new Car(in.getOutFields().get(0), new RandomDriver()));
+            cars.add(new Car(in.getOutFields().get(1), new RandomDriver()));
+            cars.add(new Car(in.getOutFields().get(1), new RandomDriver()));
             cars.add(new Car(in.getOutFields().get(1), new RandomDriver()));
         }
         return new Simulation(intersections, streets, cars);

@@ -11,7 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class MainWindow extends JFrame implements KeyListener, ActionListener {
-    public static final int FRAME_LENGTH = 30;
+    public static final int FRAME_LENGTH = 33;
     public static final double QUALITY = 1.0;
     private ArrayList<Simulation> simulations;
     private boolean recording = false;
