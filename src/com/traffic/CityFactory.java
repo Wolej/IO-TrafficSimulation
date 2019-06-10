@@ -26,7 +26,7 @@ public class CityFactory {
 
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < m; ++j) {
-                intersections.add(new Intersection(diffx + r * j, diffy + r * i));
+                intersections.add(new EqIntersection(diffx + r * j, diffy + r * i, 30));
             }
         }
 
@@ -49,7 +49,12 @@ public class CityFactory {
         }
 
         for (Intersection in : intersections) {
+            in.sortFields();
+        }
+
+        for (Intersection in : intersections) {
             cars.add(new SimpleDrivenCar(in.getOutFields().get(0), new RandomDriver()));
+            cars.add(new SimpleDrivenCar(in.getOutFields().get(1), new RandomDriver()));
         }
         return new Simulation(intersections, streets, cars);
     }

@@ -17,8 +17,13 @@ public class Street {
         Line left = new Line(l1, l2);
         Line right = new Line(l2, l1);
 
-        l1.addOutField(left.getFirstField());
-        l2.addOutField(right.getFirstField());
+        Point vec = new Point(l2.getCoordinates()).substr(new Point(l1.getCoordinates()));
+        Point nvec = vec.scale(-1);
+
+        l1.addOutField(left.getFirstField(), vec);
+        l2.addOutField(right.getFirstField(), nvec);
+        l2.addInField(left.getLastField(), nvec);
+        l1.addInField(right.getLastField(), vec);
         lines.add(left);
         lines.add(right);
     }

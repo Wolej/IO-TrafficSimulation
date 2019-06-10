@@ -8,8 +8,6 @@ public class SimpleDrivenCar implements Car {
 
     private static final int radius = 4;
 
-    private double myAnger = 0.0;
-
     public SimpleDrivenCar(Field startingField, Driver driver) {
         field = startingField;
         this.driver = driver;
@@ -17,19 +15,18 @@ public class SimpleDrivenCar implements Car {
 
     public void takeTurn() {
         Location nextLoc = field.nextLocation();
-        Field nextField;
+        Field nextField = null;
 
         boolean atIntersection = nextLoc.isIntersection();
 
         if (atIntersection) {
             Intersection upcomingIntersection = (Intersection) nextLoc;
 
-            /*
-            if (!upcomingIntersection.hasPriority(field)){
+            nextField = driver.chooseField(upcomingIntersection.getOutFields());
+            if (!upcomingIntersection.canDrive(field, nextField)) {
                 driver.trafficJammed();
                 return;
-            }*/
-            nextField = driver.chooseField(upcomingIntersection.getOutFields());
+            }
         } else {
             nextField = (Field) nextLoc;
         }
@@ -51,8 +48,8 @@ public class SimpleDrivenCar implements Car {
     public void paintCar(Graphics g) {
         Coordinates coordinates = field.getCoordinates();
 
-        float angerLevel = (float) myAnger; //driver.getAngerLevel();
-        g.setColor(new Color(angerLevel, 1.0f - angerLevel, 0));
+        float anger = driver.getAngerLevel();
+        g.setColor(new Color(anger, 1.0f - anger, 0));
         g.fillRect(coordinates.getX() - radius, coordinates.getY() - radius, 2 * radius, 2 * radius);
     }
 }

@@ -17,6 +17,8 @@ public class Line {
         Point s = new Point(startInter.getCoordinates());
         Point t = new Point(finalInter.getCoordinates());
         Point vec = s.substr(t).normalize();
+        s = s.substr(vec.scale(Configuration.RADIUS));
+        t = t.add(vec.scale(Configuration.RADIUS));
         Point ort = vec.rotate90();
         ort = ort.scale(WIDTH);
         s = s.substr(ort);
@@ -68,6 +70,8 @@ public class Line {
         Point start = new Point(startInter.getCoordinates());
         Point end = new Point(finalInter.getCoordinates());
         Point vec = start.substr(end).normalize();
+        start = start.substr(vec.scale(Configuration.RADIUS));
+        end = end.add(vec.scale(Configuration.RADIUS));
         Point ort = vec.rotate90();
         ort = ort.scale(WIDTH);
 

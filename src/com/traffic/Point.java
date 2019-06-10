@@ -41,4 +41,8 @@ public class Point {
     public Point scale(double k) {
         return new Point(x * k, y * k);
     }
+
+    public double times(Point q) {
+        return this.x * q.y - this.y * q.x;
+    }
 }

@@ -4,9 +4,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class TimeIntersection extends Intersection {
+    private int priority;
 
     public TimeIntersection(int x, int y, int[] secs) {
         super(x,y);
+        priority = 0;
         Timer t = new Timer();
 
         t.scheduleAtFixedRate(
