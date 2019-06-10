@@ -1,7 +1,10 @@
 package com.traffic;
 
+import javafx.scene.transform.Affine;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 public class CityPanel extends JPanel {
@@ -15,8 +18,15 @@ public class CityPanel extends JPanel {
         this.streets = streets;
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public void paintComponent(Graphics _g) {
+        super.paintComponent(_g);
+        Graphics2D g = (Graphics2D) _g;
+
+        AffineTransform at = new AffineTransform();
+        double sc = (double) this.getWidth() / 1000.0;
+        at.scale(sc, sc);
+        g.transform(at);
+
         for (Street s : streets) {
             s.paint(g);
         }

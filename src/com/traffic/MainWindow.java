@@ -37,7 +37,12 @@ public class MainWindow extends JFrame implements KeyListener, ActionListener {
             this.add(s.city);
         }
 
-        this.setSize(1200,1200);
+        int maxWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+        int scale = Math.min(1000, maxWidth / simulations.size());
+
+        System.out.println("scale = " + scale);
+
+        this.setSize(scale * simulations.size(),scale);
         this.setVisible(true);
         addKeyListener(this);
 
