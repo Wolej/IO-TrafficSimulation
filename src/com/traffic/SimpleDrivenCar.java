@@ -21,8 +21,6 @@ public class SimpleDrivenCar implements Car {
 
         boolean atIntersection = nextLoc.isIntersection();
 
-        System.out.println("tutaj");
-
         if (atIntersection) {
             Intersection upcomingIntersection = (Intersection) nextLoc;
 
@@ -31,7 +29,6 @@ public class SimpleDrivenCar implements Car {
                 driver.trafficJammed();
                 return;
             }*/
-            System.out.println("wybieram");
             nextField = driver.chooseField(upcomingIntersection.getOutFields());
         } else {
             nextField = (Field) nextLoc;
@@ -45,10 +42,8 @@ public class SimpleDrivenCar implements Car {
 
             field.freeField();
             field = nextField;
-            System.out.println("ruszam sie");
             field.takeField();
         } else {
-            System.out.println("TUUTU");
             driver.trafficJammed();
         }
     }

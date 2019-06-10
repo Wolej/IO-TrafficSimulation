@@ -23,7 +23,7 @@ public class CityPanel extends JPanel {
         Graphics2D g = (Graphics2D) _g;
 
         AffineTransform at = new AffineTransform();
-        double sc = (double) this.getWidth() / 1000.0;
+        double sc = (double) this.getWidth() / (double) Configuration.SCALE;
         at.scale(sc, sc);
         g.transform(at);
 

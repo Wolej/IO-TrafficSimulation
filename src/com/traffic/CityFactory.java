@@ -3,8 +3,6 @@ package com.traffic;
 import java.util.ArrayList;
 
 public class CityFactory {
-    public final static int SCALE = 1000;
-
     private ArrayList<Car> cars;
     private ArrayList<Intersection> intersections;
     private ArrayList<Street> streets;
@@ -19,8 +17,8 @@ public class CityFactory {
         int gridWidth = (m - 1) * r;
         int gridHeight = (n - 1) * r;
 
-        int diffx = SCALE - gridWidth;
-        int diffy = SCALE - gridHeight;
+        int diffx = Configuration.SCALE - gridWidth;
+        int diffy = Configuration.SCALE - gridHeight;
 
         if (diffx < 0 || diffy < 0) throw new IllegalArgumentException();
         diffx /= 2;
