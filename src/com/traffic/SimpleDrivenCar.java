@@ -2,7 +2,7 @@ package com.traffic;
 
 import java.awt.*;
 
-public class SimpleDrivenCar implements Car{
+public class SimpleDrivenCar implements Car {
     private Field field;
     private Driver driver;
 
@@ -48,6 +48,6 @@ public class SimpleDrivenCar implements Car{
         Coordinates coordinates = field.getCoordinates();
 
         float angerLevel = driver.getAngerLevel();
-
+        g.drawOval(coordinates.getX(), coordinates.getY(), 10, 10);
     }
 }
