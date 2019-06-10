@@ -1,6 +1,14 @@
 package com.traffic;
 
-public interface Location {
-    Coordinates getCoordinates();
-    boolean isIntersection();
+public abstract class Location {
+    private Coordinates coord;
+
+    public Location(int x, int y) {
+        coord = new Coordinates(x, y);
+    }
+
+    Coordinates getCoordinates() {
+        return coord;
+    }
+    public abstract boolean isIntersection();
 }
