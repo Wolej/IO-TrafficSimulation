@@ -5,4 +5,5 @@ public interface Personality {
     void passedIntersection();
     void trafficJammed();
     Anger getAngerLevel();
+    boolean isAngry();
 }

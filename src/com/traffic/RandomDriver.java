@@ -3,8 +3,14 @@ package com.traffic;
 import java.util.List;
 
 public class RandomDriver implements Driver {
+    private Personality personality;
+
     public RandomDriver() {
 
+    }
+
+    public RandomDriver(Personality personality) {
+        this.personality = personality;
     }
 
     public Field chooseField(List<Field> fields) {
