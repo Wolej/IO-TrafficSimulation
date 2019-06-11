@@ -1,7 +1,7 @@
 package com.traffic;
 
 public abstract class DriverWithPersonality implements Driver{
-    private Personality personality;
+    protected Personality personality;
 
     public DriverWithPersonality() {
         personality = new DefaultPersonality();
@@ -25,4 +25,8 @@ public abstract class DriverWithPersonality implements Driver{
     }
 
     public boolean drive() { return personality.drive(); }
+
+    public boolean isAlive() {
+        return true;
+    }
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import java.awt.*;
 
 public class Line {
-    public static final double WIDTH = 3.0;
     private List<Field> fields;
     private Intersection startInter;
     private Intersection finalInter;
@@ -20,11 +19,11 @@ public class Line {
         s = s.substr(vec.scale(Configuration.RADIUS));
         t = t.add(vec.scale(Configuration.RADIUS));
         Point ort = vec.rotate90();
-        ort = ort.scale(WIDTH);
+        ort = ort.scale(Configuration.WIDTH);
         s = s.substr(ort);
         t = t.substr(ort);
         double dist = s.substr(t).norm();
-        int fieldsN = 1 + (int) Math.floor(dist / 10);
+        int fieldsN = 1 + (int) Math.floor(dist / (3 * Configuration.CAR_RADIUS));
 
         fields = new ArrayList<>();
 
@@ -73,7 +72,7 @@ public class Line {
         start = start.substr(vec.scale(Configuration.RADIUS));
         end = end.add(vec.scale(Configuration.RADIUS));
         Point ort = vec.rotate90();
-        ort = ort.scale(WIDTH);
+        ort = ort.scale(Configuration.WIDTH);
 
         g.setColor(Color.gray);
         drawLine(g, start.substr(ort), end.substr(ort));

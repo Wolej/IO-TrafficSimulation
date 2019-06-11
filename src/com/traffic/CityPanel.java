@@ -40,6 +40,14 @@ public class CityPanel extends JPanel {
         for (Car c : cars) {
             c.paintCar(g);
         }
+
+        int scale = Configuration.SCALE;
+        int rr = 40;
+        g.setColor(Color.white);
+        g.fillRect(0, 0, scale, rr);
+        g.fillRect(0, scale - rr, scale, rr);
+        g.fillRect(0, 0, rr, scale);
+        g.fillRect(scale - rr, 0, rr, scale);
     }
 
     public void update(ArrayList<Car> cars, ArrayList<Intersection> intersections) {

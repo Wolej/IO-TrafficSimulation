@@ -1,43 +1,44 @@
 package com.traffic;
 
-import java.awt.*;
+import java.util.ArrayList;
 
 public class EqIntersection extends Intersection {
-    private int counter;
-    private int cycleLength;
-    private int priority;
+    private ArrayList<Integer> starts;
+    private ArrayList<Integer> ends;
 
-    public EqIntersection(int x, int y, int cycleLength, int priority) {
+    public EqIntersection(int x, int y) {
         super(x, y);
-        this.counter = 0;
-        this.priority = priority;
-        this.cycleLength = cycleLength;
+        starts = new ArrayList<>();
+        ends = new ArrayList<>();
+    }
+
+    private boolean intersect(int a, int b, int x) {
+        if (a < b) {
+            return a < x && x < b;
+        }
+        else {
+            return x < b || x > a;
+        }
+    }
+
+    private boolean intersect(int a, int b, int c, int d) {
+        return intersect(a, b, c) || intersect(a, b, d) || intersect(c, d, a) || intersect(c, d, b);
     }
 
     @Override
     protected boolean canDrive(int from, int to) {
-        return from == priority && from != to;
-    }
-
-    public void takeTurn () {
-        counter++;
-        counter = counter % cycleLength;
-        if (counter == 0) {
-            priority = (priority + 1) % inFields.size();
+        for (int i = 0; i < starts.size(); ++i) {
+            if (intersect(starts.get(i), ends.get(i), from, to)) return false;
         }
+
+        starts.add(from);
+        ends.add(to);
+        return true;
     }
 
     @Override
-    public void paintLights(Graphics _g) {
-        Graphics2D g = (Graphics2D) _g;
-        for (int i = 0; i < lights.size(); ++i) {
-            Polygon p = lights.get(i);
-            Color col = new Color(1.0f, 0.0f, 0.0f, 0.0f);
-            if (i == priority) col = new Color(0.0f, 1.0f, 0.0f, 1.0f);
-
-            GradientPaint gradient = new GradientPaint(p.xpoints[0], p.ypoints[0], col, p.xpoints[3], p.ypoints[3], Color.WHITE);
-            g.setPaint(gradient);
-            g.fillPolygon(p);
-        }
+    public void takeTurn() {
+        starts.clear();
+        ends.clear();
     }
 }

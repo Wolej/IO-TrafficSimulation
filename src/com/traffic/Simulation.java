@@ -35,12 +35,18 @@ public class Simulation {
     }
 
     void update() {
-        for (Car c : cars) {
-            c.takeTurn();
-        }
-
         for (Intersection i : intersections) {
             i.takeTurn();
+        }
+
+        for (int i = 0; i < cars.size(); ++i) {
+            Car c = cars.get(i);
+            if (c.isAlive()) {
+                c.takeTurn();
+            } else {
+                cars.remove(i);
+                i--;
+            }
         }
 
         city.update(cars, intersections);

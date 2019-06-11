@@ -14,16 +14,14 @@ public class Street {
         intersections.add(l1);
         intersections.add(l2);
 
-        Line left = new Line(l1, l2);
-        Line right = new Line(l2, l1);
+        Line right = new Line(l1, l2);
+        Line left = new Line(l2, l1);
 
-        Point vec = new Point(l2.getCoordinates()).substr(new Point(l1.getCoordinates()));
-        Point nvec = vec.scale(-1);
+        Point vec = new Point(l1.getCoordinates()).substr(new Point(l2.getCoordinates()));
 
-        l1.addOutField(left.getFirstField(), vec);
-        l2.addOutField(right.getFirstField(), nvec);
-        l2.addInField(left.getLastField(), nvec);
-        l1.addInField(right.getLastField(), vec);
+        l2.addStreet(right, left, vec);
+        l1.addStreet(left, right, vec.scale(-1));
+
         lines.add(left);
         lines.add(right);
     }

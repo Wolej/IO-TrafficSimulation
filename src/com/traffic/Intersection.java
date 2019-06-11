@@ -10,6 +10,7 @@ public class Intersection extends Location {
     protected List<Field> inFields;
     protected List<Field> allFields;
     protected List<Polygon> lights;
+    private List<Line> outLines;
 
     private class OrientedField implements Comparable<OrientedField> {
         private Field f;
@@ -33,8 +34,8 @@ public class Intersection extends Location {
             int h2 = of.halfPlane();
             if (h1 == h2) {
                 double cross = direction.times(of.direction);
-                if (cross < 0) return 1;
-                else return -1;
+                if (cross < 0) return -1;
+                else return 1;
             }
             return h1 - h2;
         }
@@ -47,20 +48,11 @@ public class Intersection extends Location {
         super(x, y);
         outOFields = new ArrayList<>();
         inOFields = new ArrayList<>();
+        outLines = new ArrayList<>();
     }
 
     public void takeTurn() {
-        /*
-        jakasLista.clear();
-        for (Car c : cars) {
-            int idx1 = outFields.indexOf(c.getField());
-            int idx2 = outFields.indexOf(c.getNextField());
 
-            if (canDrive(idx1, idx2)) {
-                jakasLista.put(idx1, idx2);
-                cars.remove(c);
-            }
-        }*/
     }
 
     protected boolean canDrive(int from, int to) {
@@ -69,6 +61,12 @@ public class Intersection extends Location {
 
     public boolean canDrive(Field from, Field to) {
         return canDrive(inFields.indexOf(from), outFields.indexOf(to));
+    }
+
+    public void addStreet(Line in, Line out, Point vec) {
+        addInField(in.getLastField(), vec);
+        addOutField(out.getFirstField(), vec);
+        outLines.add(out);
     }
 
     public void addInField(Field f, Point vec) {
@@ -129,7 +127,7 @@ public class Intersection extends Location {
         Point end = start.add(direction);
         Point vec = start.substr(end).normalize();
         Point ort = vec.rotate90();
-        Point trans = ort.scale(3);
+        Point trans = ort.scale(Configuration.WIDTH);
         start = start.substr(trans);
         end = end.substr(trans);
 
@@ -147,5 +145,15 @@ public class Intersection extends Location {
         Polygon result = new Polygon();
         for (Point p : res) result.addPoint((int) Math.round(p.x), (int) Math.round(p.y));
         return result;
+    }
+
+    Field turn(Field from, int k) {
+        int i = inFields.indexOf(from);
+        i = (i + k) % inFields.size();
+        return outFields.get(i);
+    }
+
+    public List<Line> getOutLines() {
+        return outLines;
     }
 }

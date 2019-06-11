@@ -9,4 +9,5 @@ public interface Driver {
     void trafficJammed();
     float getAngerLevel();
     boolean drive();
+    boolean isAlive();
 }

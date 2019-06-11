@@ -24,8 +24,8 @@ public class DefaultPersonality implements Personality {
 
     @Override
     public void trafficJammed() {
-        anger.raiseAnger(2);
-        lag = Math.max(lag, rng.nextInt(10));
+        anger.raiseAnger(3);
+        lag = Math.max(lag, rng.nextInt(1));
     }
 
     @Override

@@ -13,19 +13,18 @@ public class Car {
         this.driver = driver;
     }
 
+    public boolean isAlive() {
+        return driver.isAlive();
+    }
+
     public void takeTurn() {
         if (!driver.drive()) {
             return;
         }
         if (onIntersection) {
-            if (field.isEmpty()) {
-                field.takeField();
-                driver.passedIntersection();
-                onIntersection = false;
-            }
-            else {
-                driver.trafficJammed();
-            }
+            driver.passedIntersection();
+            onIntersection = false;
+            return;
         }
 
         Location nextLoc = field.nextLocation();
@@ -37,15 +36,20 @@ public class Car {
             Intersection upcomingIntersection = (Intersection) nextLoc;
 
             nextField = driver.chooseField(upcomingIntersection.getOutFields());
-            if (!upcomingIntersection.canDrive(field, nextField)) {
+            if (nextField == null) {
+                field.freeField();
+                return;
+            }
+            if (!upcomingIntersection.canDrive(field, nextField) || !nextField.isEmpty()) {
                 driver.trafficJammed();
                 return;
             }
 
             onIntersection = true;
-            whereOnIntersection = middlePoint(upcomingIntersection.getCoordinates(), field.getCoordinates());
+            whereOnIntersection = middlePoint(field.getCoordinates(), nextField.getCoordinates());
             field.freeField();
             field = nextField;
+            field.takeField();
         } else {
             nextField = (Field) nextLoc;
             if (nextField.isEmpty()) {

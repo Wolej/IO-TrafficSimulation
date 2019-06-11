@@ -44,6 +44,14 @@ public class MainWindow extends JFrame implements KeyListener, ActionListener {
                     ex.printStackTrace();
                 }
             }
+            if (recording == false) {
+                try {
+                    gif.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                gif = null;
+            }
         }
     }
 
@@ -75,7 +83,13 @@ public class MainWindow extends JFrame implements KeyListener, ActionListener {
         super("Traffic simulation");
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(new GridLayout(1, simulations.size()));
+        int nn = 1;
+        int mm = simulations.size();
+        while (nn * 4 <= mm) {
+            nn *= 2;
+            mm /= 2;
+        }
+        this.setLayout(new GridLayout(nn, mm));
         this.simulations = simulations;
 
         for (Simulation s : simulations) {
@@ -85,7 +99,7 @@ public class MainWindow extends JFrame implements KeyListener, ActionListener {
         int maxWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
         int scale = Math.min(Configuration.SCALE, maxWidth / simulations.size());
 
-        this.setSize(scale * simulations.size(),scale);
+        this.setSize(scale * mm,scale * nn);
         this.setVisible(true);
         addKeyListener(this);
 
